@@ -1,4 +1,4 @@
-# mechano_vae
+# Mechano_Vae
 
 A personal learning project exploring variational autoencoders (VAEs) for biological data, with the long-term goal of building a latent space representation of cell mechanical phenotypes from AFM data.
 
