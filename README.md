@@ -8,10 +8,11 @@ A personal learning project exploring variational autoencoders (VAEs) for biolog
 mechano_vae/
 │
 ├── 01_scRNA_VAE/
-│   └── 01_pbmc3k_vae.ipynb      # VAE on PBMC3k scRNA-seq data
+│   └── scVAE.ipynb                  # VAE on PBMC3k scRNA-seq data (learning scaffold)
 │
-└── 02_AFM_VAE/                   # coming next
-    └── 02_afm_vae.ipynb
+└── 02_AFM_VAE/
+    ├── mechanoVAE.ipynb             # VAE on per-measurement AFM data (snapshot approach)
+    └── TrajectorVAE.ipynb           # Conditional VAE on per-cell trajectories (trajectory approach)
 ```
 
 ## 01 — VAE on scRNA-seq data (PBMC3k)
@@ -35,17 +36,25 @@ The model was trained for 500 epochs on an Apple Silicon Mac (MPS backend). The 
 | 300    | CD4/CD8 T cells partially resolved |
 | 500    | Clear separation of all major cell types |
 
-## 02 — VAE on AFM mechanical data (coming soon)
+## 02 — VAE on AFM mechanical data
 
 The next step is to apply the same approach to AFM compression-recovery data from HeLa cells under different pharmacological treatments (DMSO, Y27632, CytoD, IPA3, LatA, Blebbi). Each cell is represented as a trajectory of mechanical features over time — stiffness, indentation depth, compression depth — measured before, during, and after compression.
 
 The goal is to learn a latent representation of mechanical phenotypes and ask whether the latent space organizes by treatment condition without supervision.
 
-## Motivation
+## 02 — VAE on AFM mechanical data — trajectory approach
+Each row is one cell, represented as its full compression-recovery trajectory. This is the more biologically meaningful representation.
+Feature vector per cell:
+[E_5s/E_0, E_30s/E_0, E_60s/E_0,
+ ΔH_0/E_0, ΔH_5s/E_0, ΔH_30s/E_0, ΔH_60s/E_0]
+Normalization by E_0 forces the model to learn relative dynamics rather than absolute stiffness. E_0 itself is dropped as it becomes 1.0 for every cell.
 
-The single-cell genomics field has shown that self-supervised models trained on large biological datasets can learn meaningful latent representations of cell state. Mechanobiology lacks an equivalent — partly because of data fragmentation, non-standardized protocols, and the absence of a shared data infrastructure.
+Condition vector:
 
-This project is a small step toward understanding what such a model might look like, starting from first principles.
+[batch one-hot (20 unique file+replicate combinations),
+ Force of compression (standardized),
+ Contact time (standardized)]
+
 
 ## Requirements
 
