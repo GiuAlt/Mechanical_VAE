@@ -41,6 +41,7 @@ The model was trained for 500 epochs on an Apple Silicon Mac (MPS backend). The 
 The next step is to apply the same approach to AFM compression-recovery data from HeLa cells under different pharmacological treatments (DMSO, Y27632, CytoD, IPA3, LatA, Blebbi). Each cell is represented as a trajectory of mechanical features over time — stiffness, indentation depth, compression depth — measured before, during, and after compression.
 
 The goal is to learn a latent representation of mechanical phenotypes and ask whether the latent space organizes by treatment condition without supervision.
+This part of the project is still ongoing.
 
 ## 02 — VAE on AFM mechanical data — trajectory approach
 Each row is one cell, represented as its full compression-recovery trajectory. This is the more biologically meaningful representation.
@@ -54,7 +55,7 @@ Condition vector:
 [batch one-hot (20 unique file+replicate combinations),
  Force of compression (standardized),
  Contact time (standardized)]
-
+This part of the project is still ongoing.
 
 ## Requirements
 
